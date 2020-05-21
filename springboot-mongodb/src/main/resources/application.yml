@@ -1,0 +1,9 @@
+server:
+   port: 9000
+
+spring:
+   data:
+      mongodb:
+         # mongodb://name:pass@localhost:27017/test
+         # 不指定数据库，一般是默认是test数据库
+         uri: mongodb://127.0.0.1:27017/test 
