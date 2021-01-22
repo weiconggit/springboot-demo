@@ -1,9 +1,9 @@
 server:
    port: 9000
-
-spring:
-   data:
-      mongodb:
+debug: true # 可以查看自动配置启用禁用了哪些配置
+# spring:
+#    data:
+#       mongodb:
          # mongodb://name:pass@localhost:27017/test
          # 不指定数据库，一般是默认是test数据库
-         uri: mongodb://127.0.0.1:27017/test 
+#          uri: mongodb://127.0.0.1:27017/test 

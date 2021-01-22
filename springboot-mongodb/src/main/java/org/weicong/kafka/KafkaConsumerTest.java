@@ -1,12 +1,23 @@
 package org.weicong.kafka;
 
+import java.io.PipedReader;
+import java.io.PipedWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.Scanner;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.log4j.Appender;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.WriterAppender;
+
+import ch.qos.logback.classic.html.HTMLLayout;
 
 /**
  * @author weicong
@@ -14,12 +25,65 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
  * @version 1.0
  */
 public class KafkaConsumerTest {
+	
+	
+	private static final Logger LOGGER = LogManager.getLogger(KafkaConsumerTest.class);
+
+    private static StringWriter stringWriter = new StringWriter();
+
+//    public static void main(String[] args) {
+//        createLogger();
+//        int i = 1;
+//        LOGGER.info("It is info log -  {}", i++);
+//        LOGGER.warn("It is warn log - {} ", i);
+//        LOGGER.error("It is error log");
+//
+//        System.out.println(stringWriter.toString());
+//
+//    }
+
+//    private static void createLogger() {
+//
+//        final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+//        final Configuration config = ctx.getConfiguration();
+//
+//        PatternLayout layout = PatternLayout.newBuilder()
+//                .withPattern("%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%t] [%c] [%M] [%l] - %msg%n").build();
+//
+//        WriterAppender writerAppender = WriterAppender.newBuilder().setName("writeLogger").setTarget(stringWriter)
+//                .setLayout(layout).build();
+//        writerAppender.start();
+//        config.addAppender(writerAppender);
+//
+//        AppenderRef ref = AppenderRef.createAppenderRef("writeLogger", null, null);
+//        AppenderRef[] refs = new AppenderRef[] { ref };
+//
+//        LoggerConfig loggerConfig = LoggerConfig.createLogger(false, Level.INFO, "example", null, refs, null, config,
+//                null);
+//
+//        loggerConfig.addAppender(writerAppender, null, null);
+//        config.addLogger("example", loggerConfig);
+//        ctx.updateLoggers();
+//    }
+	
+	
+//	private static void name() {
+//		Logger l = Logger.getLogger( ...  );
+//		 StringWriter writer = new StringWriter();
+//		 WriterAppender appender = new WriterAppender( new HTMLLayout(), writer );
+//		 l.addAppender( appender );
+//		    ... run code here
+//		  writer.flush();
+//		 l.removeAppender( appender );
+//		 return writer.toString()
+//	}
+	
 
 	public static void main(String[] args) {
 		
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092"); // kafka集群地址，bootstrap.servers 多个
-        props.put("group.id", "haha2"); // 消费者的组id
+        props.put("bootstrap.servers", "localhost:9093"); // kafka集群地址，bootstrap.servers 多个
+        props.put("group.id", "g2"); // 消费者的组id
         props.put("enable.auto.commit", "true"); // 自动提交偏移量
         props.put("auto.commit.interval.ms", "1000"); // 上一个为true时提交的频率
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer"); // x 暂不配置
@@ -51,7 +115,7 @@ public class KafkaConsumerTest {
         
         // 订阅主题列表 topic 
 //        consumer.subscribe(Arrays.asList("test01","mytopic"));
-        consumer.subscribe(Arrays.asList("testtopic"));
+        consumer.subscribe(Arrays.asList("test2"));
         // 可指定分区 Partition 
 //        String topic = "testtopic";
 //        TopicPartition partition0 = new TopicPartition(topic, 0);
@@ -60,7 +124,7 @@ public class KafkaConsumerTest {
 
         while (true) {
         	try {
-        		ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(500));
+        		ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1500));
         		System.err.println(records.isEmpty());
         		for (ConsumerRecord<String, String> record : records) {
         			// key value 分区 主题 时间戳 x 时间戳类型: CreateTime 和 LogAppendTime 头部 x 偏移 x
