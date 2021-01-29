@@ -1,6 +1,6 @@
 server:
-   port: 9000
-debug: true # 可以查看自动配置启用禁用了哪些配置
+   port: 9001
+debug: false # 可以查看自动配置启用禁用了哪些配置
 # spring:
 #    data:
 #       mongodb:

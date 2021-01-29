@@ -82,8 +82,8 @@ public class KafkaConsumerTest {
 	public static void main(String[] args) {
 		
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9093"); // kafka集群地址，bootstrap.servers 多个
-        props.put("group.id", "g2"); // 消费者的组id
+        props.put("bootstrap.servers", "localhost:9097"); // kafka集群地址，bootstrap.servers 多个
+        props.put("group.id", "g1"); // 消费者的组id
         props.put("enable.auto.commit", "true"); // 自动提交偏移量
         props.put("auto.commit.interval.ms", "1000"); // 上一个为true时提交的频率
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer"); // x 暂不配置
@@ -115,7 +115,8 @@ public class KafkaConsumerTest {
         
         // 订阅主题列表 topic 
 //        consumer.subscribe(Arrays.asList("test01","mytopic"));
-        consumer.subscribe(Arrays.asList("test2"));
+//        consumer.subscribe(Arrays.asList("test2"));
+        consumer.subscribe(Arrays.asList("test1"));
         // 可指定分区 Partition 
 //        String topic = "testtopic";
 //        TopicPartition partition0 = new TopicPartition(topic, 0);
@@ -124,7 +125,7 @@ public class KafkaConsumerTest {
 
         while (true) {
         	try {
-        		ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1500));
+        		ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
         		System.err.println(records.isEmpty());
         		for (ConsumerRecord<String, String> record : records) {
         			// key value 分区 主题 时间戳 x 时间戳类型: CreateTime 和 LogAppendTime 头部 x 偏移 x
