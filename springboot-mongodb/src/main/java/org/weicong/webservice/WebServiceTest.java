@@ -13,9 +13,9 @@ import javax.xml.ws.Endpoint;
 public class WebServiceTest {
 
     @WebMethod
-    public String sayHello(String str){
-        String result = "Hello World, "+str;
-        System.err.println(result);
+    public String sayHello(String phone, String content){
+    	System.err.println("phone:" + phone + ",content:" + content);
+    	String result = "phone:" + phone + ",content:" + content;
         return result;
     }
     public static void main(String[] args) {

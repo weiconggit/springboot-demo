@@ -29,21 +29,21 @@ public class SmsTestController {
 	// ==========================================
 	
 	@GetMapping("sms")
-	public String haha(@RequestParam String phone) {
+	public String haha(@RequestParam String phone, @RequestParam String content) {
 		System.out.println(phone);
-		return "sms phone is: " + phone + ", sign is: " + this.sign;
+		return "sms phone: " + phone + ",content:" + content + "<br>sign is: " + this.sign;
 	}
 	
 	@PutMapping("sms")
-	public String haha2(@RequestParam String phone) {
+	public String haha2(@RequestParam String phone, @RequestParam String content) {
 		System.out.println(phone);
-		return "sms phone is: " + phone + ", sign is: " + this.sign;
+		return "sms phone: " + phone + ",content:" + content + "<br>sign is: " + this.sign;
 	}
 	
 	@PostMapping("sms")
-	public String haha3(@RequestParam String phone) {
+	public String haha3(@RequestParam String phone, @RequestParam String content) {
 		System.out.println(phone);
-		return "sms phone is: " + phone + ", sign is: " + this.sign;
+		return "sms phone: " + phone + ",content:" + content + "<br>sign is: " + this.sign;
 	}
 	
 	// ~ WEBSERVICE
